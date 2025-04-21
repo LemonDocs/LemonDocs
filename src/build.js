@@ -65,7 +65,7 @@ async function setup() {
     if(sidebarNav) {
         for(const n of sidebarNav) {
 
-            const url = new URL(window.location.origin)
+            const url = new URL(window.location.href)
 
             const searchParam = new URLSearchParams()
             searchParam.set('doc', n.path ?? n.label.toLowerCase())
@@ -83,10 +83,10 @@ async function setup() {
 
     sidebar.innerHTML = `<p class="title"><strong>${title}</strong></p>${sidebar.innerHTML}`
 
-    const searchParams = new URLSearchParams(window.location.href)
+    const searchParams = new URLSearchParams(window.location.search)
 
     const hasDocParam = searchParams.has('doc')
-    const docPath = `../${config.docsPath ?? 'docs/'}`
+    const docPath = `${config.docsPath ?? 'docs/'}`
 
     let foundDoc = false
 
