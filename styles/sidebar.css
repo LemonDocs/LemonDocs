@@ -83,7 +83,7 @@
     border-radius: 7.5px;
 }
 
-#sidebar a:hover {
+#sidebar a:not(.gh-icon):hover {
     background-color: var(--selectedBgColor);
 }
 
