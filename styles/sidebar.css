@@ -1,0 +1,50 @@
+:root {
+    --bgColor: white;
+    --textColor: black;
+    --borderColor: #323232;
+    --selectedBgColor: #eaeaea;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: var(--bgColor);
+    border-right: solid var(--borderColor);
+
+    width: 200px;
+    height: 100vh;
+
+    margin: 0;
+
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 9999;
+}
+
+#sidebar a {
+    color: var(--textColor);
+    text-decoration: none;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+
+    padding: 4px;
+    
+    border-radius: 5px;
+
+    margin-top: 7.5px;
+}
+
+#sidebar a:hover {
+    background-color: var(--selectedBgColor);
+}
+
+@media only screen and (max-width: 600px) {
+    #sidebar {
+        width: 110px;
+    }
+}
