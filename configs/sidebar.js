@@ -3,16 +3,24 @@ export default {
         "bgColor": "white",
         "textColor": "black",
         "borderColor": "#323232",
-        "selectedBgColor": "#eaeaea"
+        "selectedBgColor": "#eaeaea",
+        "chosenBgColor": "#dcdcdc"
     },
     "nav": [
         {
             "label": "Introduction",
-            "path": "introduction"
+            "path": "introduction",
+            "file": "intro.md"
         },
         {
             "label": "Installation",
-            "path": "installation"
+            "path": "installation",
+            "file": "installation.md"
+        },
+        {
+            "label": "Getting Started",
+            "path": "getting started",
+            "file": "set-up.md"
         }
     ]
 }

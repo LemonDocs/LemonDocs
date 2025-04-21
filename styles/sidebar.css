@@ -3,6 +3,7 @@
     --textColor: black;
     --borderColor: #323232;
     --selectedBgColor: #eaeaea;
+    --chosenBgColor: #dcdcdc
 }
 
 #sidebar {
@@ -41,6 +42,14 @@
 
 #sidebar a:hover {
     background-color: var(--selectedBgColor);
+}
+
+#sidebar .selected {
+    background-color: var(--chosenBgColor) !important;
+}
+
+#sidebar .selected::after {
+    content: ' <';
 }
 
 @media only screen and (max-width: 600px) {

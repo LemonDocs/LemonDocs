@@ -47,6 +47,15 @@ async function setup() {
         }
     }
 
+    sidebar.innerHTML = `<p class="title"><strong>${title}</strong></p>${sidebar.innerHTML}`
+
+    const searchParams = new URLSearchParams(window.location.search)
+
+    const hasDocParam = searchParams.has('doc')
+    const docPath = config.docsPath ?? 'docs/'
+
+    let foundDoc = false
+
     if(config.primary_color) {
         document.documentElement.style.setProperty('--primary-color', config.primary_color)
     }
@@ -67,8 +76,10 @@ async function setup() {
 
             const url = new URL(window.location.href)
 
+            const nPath = n.path ?? n.label.toLowerCase()
+
             const searchParam = new URLSearchParams()
-            searchParam.set('doc', n.path ?? n.label.toLowerCase())
+            searchParam.set('doc', encodeURIComponent(nPath))
 
             url.search = searchParam.toString()
 
@@ -76,19 +87,23 @@ async function setup() {
             item.innerHTML = n.label
 
             item.href = url
+            item.title = n.label
+
+            if(hasDocParam) {
+                if(decodeURIComponent(searchParams.get("doc")) == nPath) {
+                    item.classList.add("selected")
+                }
+            } else {
+                if(config.defaultPage) {
+                    if(config.defaultPage == n?.file) {
+                        item.classList.add("selected")
+                    }
+                }
+            }
 
             sidebar.appendChild(item)
         }
     }
-
-    sidebar.innerHTML = `<p class="title"><strong>${title}</strong></p>${sidebar.innerHTML}`
-
-    const searchParams = new URLSearchParams(window.location.search)
-
-    const hasDocParam = searchParams.has('doc')
-    const docPath = `${config.docsPath ?? 'docs/'}`
-
-    let foundDoc = false
 
     for(const n of config.nav) {
         const file = n.file

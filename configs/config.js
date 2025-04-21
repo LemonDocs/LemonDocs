@@ -10,6 +10,10 @@ export default {
         {
             "label": "Installation",
             "file": "installation.md"
+        },
+        {
+            "label": "Getting Started",
+            "file": "set-up.md"
         }
     ]
 }
