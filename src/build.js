@@ -83,7 +83,7 @@ async function setup() {
 
     sidebar.innerHTML = `<p class="title"><strong>${title}</strong></p>${sidebar.innerHTML}`
 
-    const searchParams = new URLSearchParams(window.location.search)
+    const searchParams = new URLSearchParams(window.location.href)
 
     const hasDocParam = searchParams.has('doc')
     const docPath = `../${config.docsPath ?? 'docs/'}`
