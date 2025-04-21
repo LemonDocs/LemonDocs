@@ -22,6 +22,9 @@ const sidebar = document.getElementById("sidebar")
 const title = config.title ?? 'Documentation'
 
 async function setup() {
+
+    const localStorage = window.localStorage
+
     /**
      * @param {string} path 
      */
@@ -64,7 +67,13 @@ async function setup() {
     }
 
     const sidebarStyles = sidebarConfig.styles
+    const sidebarOtherStyles = sidebarConfig.otherThemeStyles
     const sidebarNav = sidebarConfig.nav
+
+    const themeSettings = config?.styleSettings
+
+    const defaultTheme = themeSettings?.defaultTheme
+    const otherTheme = themeSettings?.otherTheme
 
     if(sidebarStyles) {
         for(const s in sidebarStyles) {
@@ -73,6 +82,15 @@ async function setup() {
     }
     if(sidebarNav) {
         for(const n of sidebarNav) {
+
+            if(n?.type == 'label') {
+                const item = document.createElement('p')
+                item.textContent = n.label
+                item.classList.add('sidebar-label')
+                sidebar.appendChild(item)
+
+                continue
+            }
 
             const url = new URL(window.location.href)
 
@@ -103,6 +121,56 @@ async function setup() {
 
             sidebar.appendChild(item)
         }
+    }
+
+    function switchTheme() {
+        if(localStorage.getItem('theme') == 'other') {
+            localStorage.setItem('theme', 'default')
+
+            if(sidebarStyles) {
+                for(const s in sidebarStyles) {
+                    document.documentElement.style.setProperty(`--${s}`, sidebarStyles[s])
+                }
+            }
+            if(defaultTheme) {
+                for(const s in defaultTheme) {
+                    document.documentElement.style.setProperty(`--${s}`, defaultTheme[s])
+                }
+            }
+        } else {
+            localStorage.setItem('theme', 'other')
+            if(sidebarOtherStyles) {
+                for(const s in sidebarOtherStyles) {
+                    document.documentElement.style.setProperty(`--${s}`, sidebarOtherStyles[s])
+                }
+            }
+            if(otherTheme) {
+                for(const s in otherTheme) {
+                    document.documentElement.style.setProperty(`--${s}`, otherTheme[s])
+                }
+            }
+        }
+    }
+
+    if(localStorage.getItem('theme') == 'other') {
+        for(const el of document.querySelectorAll('*')) {
+            el.style.transition = 'none'
+        }
+        if(sidebarOtherStyles) {
+            for(const s in sidebarOtherStyles) {
+                document.documentElement.style.setProperty(`--${s}`, sidebarOtherStyles[s])
+            }
+        }
+        if(otherTheme) {
+            for(const s in otherTheme) {
+                document.documentElement.style.setProperty(`--${s}`, otherTheme[s])
+            }
+        }
+        setTimeout(() => {
+            for(const el of document.querySelectorAll('*')) {
+                el.style.transition = 'all ease 0.5s'
+            }
+        }, 500);
     }
 
     for(const n of config.nav) {
@@ -138,6 +206,33 @@ async function setup() {
     }
 
     Prism.highlightAll()
+
+    const iconContainer = document.createElement('span')
+    iconContainer.classList.add('icons-container')
+    sidebar.appendChild(iconContainer)
+
+    const buttonContainer = document.createElement('div')
+    buttonContainer.classList.add('button-container')
+    sidebar.appendChild(buttonContainer)
+
+    if(config['gh-repository']) {
+        const ghLink = document.createElement("a")
+        ghLink.href = config['gh-repository']
+        ghLink.innerHTML = await readFile('assets/github.svg')
+        ghLink.classList.add('gh-icon')
+        ghLink.title = 'GitHub Repository'
+        iconContainer.appendChild(ghLink)
+    }
+
+    if(sidebarConfig['otherThemeStyles']) {
+        const themeButton = document.createElement('button')
+        themeButton.textContent = 'Switch Theme'
+        buttonContainer.appendChild(themeButton)
+
+        buttonContainer.addEventListener('click', () => {
+            switchTheme()
+        })
+    }
 }
 
 setup()

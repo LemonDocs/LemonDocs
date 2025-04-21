@@ -4,13 +4,31 @@ export default {
         "textColor": "black",
         "borderColor": "#323232",
         "selectedBgColor": "#eaeaea",
-        "chosenBgColor": "#dcdcdc"
+        "chosenBgColor": "#dcdcdc",
+        "lineColor": "#ccc"
+    },
+    "otherThemeStyles": {
+        "bgColor": "#242424",
+        "textColor": "#cfcfcf",
+        "borderColor": "#1a1a1a",
+        "selectedBgColor": "#1c1c1c",
+        "chosenBgColor": "#121212",
+        "lineColor": "#303030"
     },
     "nav": [
         {
             "label": "Introduction",
             "path": "introduction",
             "file": "intro.md"
+        },
+        {
+            "label": "Prerequisites",
+            "path": "prerequisites",
+            "file": "prerequisites.md"
+        },
+        {
+            "label": "Setting Up",
+            "type": "label"
         },
         {
             "label": "Installation",

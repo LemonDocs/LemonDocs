@@ -3,13 +3,16 @@
     --textColor: black;
     --borderColor: #323232;
     --selectedBgColor: #eaeaea;
-    --chosenBgColor: #dcdcdc
+    --chosenBgColor: #dcdcdc;
+    --lineColor: #ccc;
+}
+
+* {
+    color: var(--textColor);
 }
 
 #sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
 
     background-color: var(--bgColor);
     border-right: solid var(--borderColor);
@@ -25,19 +28,59 @@
     flex-direction: column;
 
     z-index: 9999;
+
+    overflow: auto;
 }
 
-#sidebar a {
+#sidebar .title {
+    color: var(--textColor)
+}
+
+#sidebar a:not(.gh-icon) {
     color: var(--textColor);
     text-decoration: none;
     height: auto;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--lineColor);
 
     padding: 4px;
     
     border-radius: 5px;
 
     margin-top: 7.5px;
+}
+
+#sidebar .sidebar-label {
+    color: var(--textColor);
+    height: auto;
+    border-bottom: 1px solid var(--lineColor);
+    font-weight: bolder;
+    padding: 6px;
+}
+
+#sidebar .icons-container {
+    margin: 10px;
+    width: 1.75rem;
+    height: 1rem;
+}
+
+#sidebar .icons-container a svg {
+    opacity: 25%;
+}
+
+#sidebar .button-container {
+    margin: 10px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#sidebar .button-container button {
+    background-color: var(--bgColor);
+    border-style: solid;
+    border-color: var(--selectedBgColor);
+    border-radius: 7.5px;
 }
 
 #sidebar a:hover {

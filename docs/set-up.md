@@ -25,4 +25,4 @@
 ## 📜 Summary
 ---
 📁 Adding a page to your **documentation** requires you to modify 2 files.<br>
-🧠 You would need a little knowledge on JSON.
+🧠 You would need little knowledge on JSON.
