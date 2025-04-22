@@ -3,6 +3,7 @@ export default {
     "defaultPage": "intro.md",
     "docsPath": "docs/",
     "gh-repository": "https://github.com/LemonDocs/LemonDocs",
+    "favicon": "assets/favicon.svg",
     "styleSettings": {
         "defaultTheme": {
             "primary-color": "white",

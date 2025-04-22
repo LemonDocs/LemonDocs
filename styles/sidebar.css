@@ -36,6 +36,10 @@
     color: var(--textColor)
 }
 
+#sidebar .title-icon {
+    width: 1rem;
+}
+
 #sidebar a:not(.gh-icon) {
     color: var(--textColor);
     text-decoration: none;

@@ -50,7 +50,7 @@ async function setup() {
         }
     }
 
-    sidebar.innerHTML = `<p class="title"><strong>${title}</strong></p>${sidebar.innerHTML}`
+    sidebar.innerHTML = `<p class="title">${config.favicon ? `<img src="${config.favicon}" class="title-icon">` : ''}<strong>${title}</strong></p>${sidebar.innerHTML}`
 
     const searchParams = new URLSearchParams(window.location.search)
 
@@ -232,6 +232,14 @@ async function setup() {
         buttonContainer.addEventListener('click', () => {
             switchTheme()
         })
+    }
+
+    if(config.favicon) {
+        const f = document.createElement('link')
+        f.rel = 'shortcut icon',
+        f.href = config.favicon
+        f.type = 'image/x-icon'
+        document.head.appendChild(f)
     }
 }
 
