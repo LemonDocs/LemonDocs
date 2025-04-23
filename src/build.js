@@ -94,7 +94,7 @@ async function setup() {
 
             const url = new URL(window.location.href)
 
-            const nPath = n.path ?? n.label.toLowerCase()
+            const nPath = n?.path ?? n.label.toLowerCase()
 
             const searchParam = new URLSearchParams()
             searchParam.set('doc', encodeURIComponent(nPath))
@@ -173,6 +173,18 @@ async function setup() {
         }, 500);
     }
 
+    /**
+     * @type {{file: string, label: string}}
+     */
+    let currentPage = {}
+    /**
+     * @type {{file: string, label: string}}
+     */
+    let previousPage = {}
+    /**
+     * @type {{file: string, label: string}}
+     */
+    let nextPage = {}
     for(const n of config.nav) {
         const file = n.file
         const label = n.label
@@ -183,6 +195,9 @@ async function setup() {
                 document.title = `${label} | ${title}`
                 content.innerHTML = purify.sanitize(marked.parse(await readFile(`${docPath}${file}`)))
                 foundDoc = true
+                currentPage = n
+                nextPage = config.nav[config.nav.indexOf(currentPage) + 1] ?? {}
+                previousPage = config.nav[config.nav.indexOf(currentPage) - 1] ?? {}
                 break
             }
         }
@@ -191,6 +206,9 @@ async function setup() {
                 document.title = `${label} | ${title}`
                 content.innerHTML = purify.sanitize(marked.parse(await readFile(`${docPath}${file}`)))
                 foundDoc = true
+                currentPage = n
+                nextPage = config.nav[config.nav.indexOf(currentPage) + 1] ?? {}
+                previousPage = config.nav[config.nav.indexOf(currentPage) - 1] ?? {}
                 break
             }
         }
@@ -222,6 +240,48 @@ async function setup() {
         ghLink.classList.add('gh-icon')
         ghLink.title = 'GitHub Repository'
         iconContainer.appendChild(ghLink)
+
+        if(Object.keys(currentPage).length > 0) {
+            content.innerHTML = `
+                ${content.innerHTML}<br>
+                <a class="gh-edit-link" href="${config['gh-repository']}/blob/main/${docPath}${currentPage.file}">${await fileExists('assets/pen.svg') ? (await readFile('assets/pen.svg')).concat(' ') : ''}Edit this page</a>
+            `
+        }
+    }
+
+    if(config.navButtons) {
+        const navButtons = document.createElement('span')
+        navButtons.classList.add('nav-button-container')
+        let addButtons = false
+        if(Object.keys(previousPage).length > 0) {
+            const url = new URL(window.location.href)
+            const params = new URLSearchParams(url)
+            params.set('doc', encodeURIComponent(previousPage.label.toLowerCase()))
+
+            url.search = params.toString()
+            navButtons.innerHTML = `
+                ${navButtons.innerHTML}
+                <a class="navButton previousPageBtn" href="${url}">${previousPage.label}</a>
+            `
+            addButtons = true
+        }
+        if(Object.keys(nextPage).length > 0) {
+            const url = new URL(window.location.href)
+            const params = new URLSearchParams(url)
+            params.set('doc', encodeURIComponent(nextPage.label.toLowerCase()))
+
+            url.search = params.toString()
+            navButtons.innerHTML = `
+                ${navButtons.innerHTML}
+                <a class="navButton nextPageBtn" href="${url}">${nextPage.label}</a>
+            `
+            addButtons = true
+        }
+        if(addButtons) {
+            content.appendChild(document.createElement('br'))
+            content.appendChild(document.createElement('br'))
+            content.appendChild(navButtons)
+        }
     }
 
     if(sidebarConfig['otherThemeStyles']) {

@@ -8,6 +8,10 @@
     transition: all ease 0.5s;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 body {
     background-color: var(--primary-color);
     width: 100%;
@@ -31,6 +35,47 @@ kbd {
     box-shadow: 0px 2.5px gray;
     user-select: none;
     font-weight: bold;
+}
+
+svg:not(a.gh-icon > svg) {
+    width: 1rem;
+    fill: var(--textColor);
+}
+
+span.nav-button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    padding: 2rem;
+}
+
+a.navButton {
+    margin: 10px;
+    background-color: var(--selectedBgColor);
+    border-radius: 5px;
+    padding: 2rem;
+    width: 9.5rem;
+    text-decoration: none;
+    text-align: center;
+
+    border-style: solid;
+    border-color: var(--lineColor);
+}
+
+a.navButton.previousPageBtn::before {
+    content: '< ';
+}
+
+a.navButton.nextPageBtn::after {
+    content: ' >';
+}
+
+a.navButton:hover {
+    box-shadow: 0px 0px 15px var(--lineColor);
+    text-shadow: 0px 0px 2.5px var(--textColor);
+    padding: 2.5rem;
 }
 
 @media only screen and (max-width: 600px) {

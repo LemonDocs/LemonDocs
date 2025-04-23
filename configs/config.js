@@ -4,6 +4,7 @@ export default {
     "docsPath": "docs/",
     "gh-repository": "https://github.com/LemonDocs/LemonDocs",
     "favicon": "assets/favicon.svg",
+    "navButtons": true,
     "styleSettings": {
         "defaultTheme": {
             "primary-color": "white",
