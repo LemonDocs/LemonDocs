@@ -8,11 +8,13 @@ export default {
     "styleSettings": {
         "defaultTheme": {
             "primary-color": "white",
-            "textColor": "black"
+            "textColor": "black",
+            "barItemColor": "#dbce4d"
         },
         "otherTheme": {
             "primary-color": "#242424",
-            "textColor": "white"
+            "textColor": "white",
+            "barItemColor": "#d9cf75"
         }
     },
     "nav": [
@@ -31,6 +33,10 @@ export default {
         {
             "label": "Getting Started",
             "file": "set-up.md"
+        },
+        {
+            "label": "More Markdown",
+            "file": "new-md-features.md"
         }
     ]
 }

@@ -1,0 +1,84 @@
+:root {
+    --barItemColor: #d9cf75;
+}
+
+div.graph-container {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+div.graph-container div.graph {
+    background-color: var(--selectedBgColor);
+    padding: 1rem;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    
+    justify-content: space-evenly;
+
+    background-image: 
+        linear-gradient(to right, var(--lineColor) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--lineColor) 1px, transparent 1px);
+    background-size: 1rem 1rem;
+    background-blend-mode: screen;
+    
+    border-radius: 5px;
+}
+
+div.graph-container div.graph div.graph-item {
+    width: 2rem;
+    background-color: var(--barItemColor);
+    border-radius: 5px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+div.graph-container div.graph div.graph-item::before {
+    content: attr(data-value);
+    text-align: center;
+    color: var(--textColor);
+    display: block;
+    margin-top: 0.5rem;
+    
+    user-select: none;
+}
+
+div.graph-container span.graph-labels {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    
+    padding: 1rem;
+    padding-top: 0;
+
+    align-items: center;
+}
+
+svg.wave {
+    background-color: var(--selectedBgColor);
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    
+    justify-content: space-evenly;
+
+    background-image: 
+        linear-gradient(to right, var(--lineColor) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--lineColor) 1px, transparent 1px);
+    background-size: 1rem 1rem;
+    background-blend-mode: screen;
+    
+    border-radius: 5px;
+
+    width: 10rem;
+    height: 10rem;
+}
+
+div.graph-container span.graph-labels p.graph-label {
+    text-align: center;
+    margin-top: 0.5rem;
+}
