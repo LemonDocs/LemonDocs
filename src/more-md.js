@@ -38,6 +38,78 @@ const observer = new MutationObserver((mutations) => {
                             node.replaceWith(graphContainer)
                         } catch(e) {}
                     }
+                } else if(node instanceof HTMLParagraphElement) {
+                    if(node.textContent == ':::tabs') {
+                        const wrapper = document.createElement('div')
+                        wrapper.classList.add('tab-wrapper')
+
+                        const tabHeaders = document.createElement('span')
+                        tabHeaders.classList.add('tab-headers')
+
+                        const tabContents = document.createElement('div')
+                        tabContents.classList.add('tab-contents')
+
+                        let n = node.nextElementSibling;
+                        let currentTab
+                        const nodesToRemove = []
+                        const tabPairs = []
+
+                        while(n && n.textContent !== ':::') {
+                            const next = n.nextElementSibling
+
+                            if(n.textContent.startsWith("@tab ")) {
+                                currentTab = document.createElement("div")
+                                currentTab.classList.add("tab-content")
+
+                                const tabName = n.textContent.replace("@tab ", "").trim()
+
+                                const button = document.createElement("button")
+                                button.textContent = tabName
+                                button.classList.add("tab-button")
+
+                                currentTab.classList.add('inactive-content')
+
+                                tabPairs.push({ button, content: currentTab})
+
+                                tabHeaders.appendChild(button)
+                                tabContents.appendChild(currentTab)
+                                nodesToRemove.push(n)
+                            } else if(currentTab) {
+                                currentTab.appendChild(n.cloneNode(true))
+                                nodesToRemove.push(n)
+                            }
+
+                            n = next
+                        }
+
+                        wrapper.appendChild(tabHeaders)
+                        wrapper.appendChild(tabContents)
+
+                        nodesToRemove.forEach(nod => nod.remove())
+                        if(n) n.remove()
+
+                        node.replaceWith(wrapper)
+
+                            tabPairs.forEach(({button, content}) => {
+                                button.onclick = () => {
+                                    console.log(button.textContent)
+                                    wrapper.querySelectorAll('.tab-content').forEach(c => {
+                                        c.classList.add('inactive-content')
+                                    })
+    
+                                    wrapper.querySelectorAll('.tab-button').forEach(b => {
+                                        b.classList.remove('active-btn')
+                                    })
+    
+                                    content.classList.remove('inactive-content')
+                                    button.classList.add('active-btn')
+                                }
+                            })
+
+                        if(tabPairs.length > 0) {
+                            tabPairs[0].button.click()
+                        }
+                    }
                 }
             }
         }

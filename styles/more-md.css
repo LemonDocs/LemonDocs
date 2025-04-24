@@ -82,3 +82,42 @@ div.graph-container span.graph-labels p.graph-label {
     text-align: center;
     margin-top: 0.5rem;
 }
+
+div.tab-wrapper div.tab-contents div.inactive-content {
+    display: none;
+}
+
+div.tab-wrapper div.tab-contents div:not(.inactive-content) {
+    display: block;
+}
+
+div.tab-wrapper div.tab-contents {
+    background-color: var(--selectedBgColor);
+    padding: 1rem;
+}
+
+div.tab-wrapper span.tab-headers {
+    background-color: var(--chosenBgColor);
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    border-bottom: solid var(--borderColor);
+}
+
+div.tab-wrapper {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+div.tab-wrapper span.tab-headers button {
+    background-color: var(--bgColor);
+    padding: 0.5rem;
+    border-color: var(--borderColor);
+    border-style: solid;
+    border-radius: 5px;
+}
+
+div.tab-wrapper span.tab-headers button:hover {
+    background-color: var(--selectedBgColor);
+}
