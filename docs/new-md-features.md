@@ -1,4 +1,5 @@
-# More Markdown
+# More Markdown 
+---
 ✨ **LemonDocs** adds a few more markdown features, such as:
 
 - Bar Graphs<br><br>
@@ -46,3 +47,14 @@ print(1)
 ```
 
 :::
+
+- Spoilers<br><br>
+    Syntax:
+    ```md
+        ||Hello, World!||
+    ```    
+    <p style="opacity: 25%; user-select: none">💡 This is yet an another example! Replace the values with your own!</p><br>
+
+||Hello, World!||
+
+<br>

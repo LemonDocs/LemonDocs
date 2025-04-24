@@ -1,5 +1,5 @@
 # Getting started
-
+---
 🤔 How do i add a page to the documentation?
 
 1. Go to ***configs/config.js***.

@@ -126,3 +126,19 @@ div.tab-wrapper span.tab-headers button.active-btn {
     background-color: var(--selectedBgColor);
     font-weight: bold;
 }
+
+span.spoiler-text {
+    padding: 0.1rem;
+}
+
+span.spoiler-text.spoilered {
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--textColor);
+}
+
+span.spoiler-text:not(.spoilered) {
+    cursor: initial;
+    user-select: initial;
+    background-color: transparent;
+}

@@ -1,5 +1,5 @@
 # Prerequisites
-
+---
 📋 Before making your own documentation with LemonDocs, you need some of the following:
 
 ## 🧰 Required Tools
@@ -12,4 +12,5 @@
 ---
 - Basic understanding of **Markdown**.<br><br>
 - Familiarity with editing **JSON** files.<br><br>
+- Experience with the **terminal**.<br><br>
 - Optional: Experience with Git for versioning control.

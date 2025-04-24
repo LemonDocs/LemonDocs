@@ -27,7 +27,7 @@ export default {
             "file": "prerequisites.md"
         },
         {
-            "label": "Set Up",
+            "label": "Development",
             "type": "label"
         },
         {
@@ -39,6 +39,11 @@ export default {
             "label": "Getting Started",
             "path": "getting started",
             "file": "set-up.md"
+        },
+        {
+            "label": "Testing",
+            "path": "testing",
+            "file": "testing.md"
         },
         {
             "label": "Markdown",

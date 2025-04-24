@@ -1,5 +1,5 @@
 # Introduction
-
+---
 ⚡ ***LemonDocs*** is a tool that helps you build a **documentation website** in no time.
 
 🤯 ***LemonDocs*** is purely written in Vanilla Javascript, with no frameworks.

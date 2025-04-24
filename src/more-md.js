@@ -138,6 +138,50 @@ function processGraphs(node) {
     }
 }
 
+function initializeSpoilers() {
+    document.querySelectorAll('span.spoiler-text').forEach(p => {
+        function handleSpoilerClick() {
+            p.classList.remove('spoilered')
+            p.removeEventListener('click', handleSpoilerClick)
+        }
+        p.removeEventListener('click', handleSpoilerClick)
+        p.addEventListener('click', handleSpoilerClick)
+    })
+}
+
+/**
+ * @param {HTMLElement} node 
+ */
+function processSpoilers(node) {
+    if(!(node instanceof HTMLParagraphElement) || !(/^\|\|.*\|\|$/.test((node.textContent.trim()).replace('\t', '')))) return
+    if(node.classList.contains('spoiler-text')) return
+
+    let output = ''
+    let loop = true
+    
+    for(const char of (node.textContent).substring(2)) {
+        if(loop) {
+            if(char != '|') {
+                output = output.concat(char)
+            } else {
+                loop = false
+            }
+        }
+    }
+
+    if(!loop) {
+        const n = document.createElement('span')
+        n.classList.add('spoiler-text', 'spoilered')
+        n.textContent = output
+
+        node.replaceWith(n)
+    }
+
+    setTimeout(initializeSpoilers, 0)
+
+    return !loop
+}
+
 // Observe DOM changes
 const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -145,6 +189,7 @@ const observer = new MutationObserver((mutations) => {
             mutation.addedNodes.forEach(node => {
                 // Process tabs
                 if (node instanceof HTMLParagraphElement) {
+                    processSpoilers(node)
                     processTabs(node);
                 }
 
@@ -163,6 +208,7 @@ const observer = new MutationObserver((mutations) => {
 
             // Always check for tabs that might have been added
             initializeTabs();
+            initializeSpoilers()
         }
     });
 });
@@ -170,11 +216,14 @@ const observer = new MutationObserver((mutations) => {
 // Initialize on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     initializeTabs();
+    initializeSpoilers()
 
     // Process any tabs that might already exist when the page loads
     document.querySelectorAll('p').forEach(p => {
         if (p.textContent === ':::tabs') {
             processTabs(p);
+        } else if(/^\|\|.*\|\|$/.test((p.textContent.trim()).replace('\t', ''))) {
+            processSpoilers(p)
         }
     });
 

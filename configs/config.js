@@ -37,6 +37,10 @@ export default {
         {
             "label": "More Markdown",
             "file": "new-md-features.md"
+        },
+        {
+            "label": "Testing",
+            "file": "testing.md"
         }
     ]
 }
