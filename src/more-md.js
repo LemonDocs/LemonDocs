@@ -182,6 +182,54 @@ function processSpoilers(node) {
     return !loop
 }
 
+/**
+ * @param {HTMLParagraphElement} node 
+ */
+function processTimelines(node) {
+    if(!(node instanceof HTMLParagraphElement) || node.textContent !== '[TIMELINE]') return
+
+    let n = node.nextElementSibling
+    let nodesToRemove = []
+
+    const wrapper = document.createElement('div')
+    wrapper.classList.add('timeline-wrapper')
+
+    /**
+     * @type {HTMLDivElement}
+     */
+    let current = null
+
+    while(n && n.textContent !== "[END]") {
+        const next = n.nextElementSibling
+
+        if(n.textContent.trim().startsWith("[TIME] ")) {
+            current = document.createElement('div')
+            current.classList.add('timeline-item')
+
+            const time = document.createElement('p')
+            time.classList.add('timeline-time')
+
+            time.textContent = n.textContent.substring(7).trim()
+
+            current.appendChild(time)
+
+            wrapper.appendChild(current)
+        } else if(current) {
+            current.appendChild(n.cloneNode(true))
+        }
+
+        nodesToRemove.push(n)
+
+        n = next
+    }
+
+    nodesToRemove.forEach(nod => nod.remove())
+
+    if(n) n.remove()
+
+    node.replaceWith(wrapper)
+}
+
 // Observe DOM changes
 const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -191,6 +239,7 @@ const observer = new MutationObserver((mutations) => {
                 if (node instanceof HTMLParagraphElement) {
                     processSpoilers(node)
                     processTabs(node);
+                    processTimelines(node)
                 }
 
                 // Process graphs
@@ -202,6 +251,7 @@ const observer = new MutationObserver((mutations) => {
                 if (node.querySelectorAll) {
                     node.querySelectorAll('p').forEach(p => {
                         processTabs(p);
+                        processTimelines(p)
                     });
                 }
             });
@@ -224,6 +274,8 @@ document.addEventListener('DOMContentLoaded', () => {
             processTabs(p);
         } else if(/^\|\|.*\|\|$/.test((p.textContent.trim()).replace('\t', ''))) {
             processSpoilers(p)
+        } else if(p.textContent === '[TIMELINE]') {
+            processTimelines(p)
         }
     });
 

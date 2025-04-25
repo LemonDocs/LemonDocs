@@ -57,4 +57,33 @@ print(1)
 
 ||Hello, World!||
 
-<br>
+<br><br>
+
+- Timelines<br><br>
+    Syntax:
+    ```md
+        [TIMELINE]
+
+            [TIME] April 21, 2025
+
+        Naming of LemonDocs
+
+            [TIME] April 24, 2025
+
+        Creation of LemonDocs' Organization Logo
+
+        [END]
+    ```    
+    <p style="opacity: 25%; user-select: none">💡 This is yet an another example! Replace the values with your own!</p><br>
+
+[TIMELINE]
+
+    [TIME] April 21, 2025
+
+Naming of LemonDocs
+
+    [TIME] April 24, 2025
+
+Creation of LemonDocs' Organization Logo
+
+[END]
