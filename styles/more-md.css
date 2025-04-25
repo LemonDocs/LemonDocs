@@ -121,3 +121,8 @@ div.tab-wrapper span.tab-headers button {
 div.tab-wrapper span.tab-headers button:hover {
     background-color: var(--selectedBgColor);
 }
+
+div.tab-wrapper span.tab-headers button.active-btn {
+    background-color: var(--selectedBgColor);
+    font-weight: bold;
+}
